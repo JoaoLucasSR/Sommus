@@ -1,0 +1,11 @@
+CREATE TABLE "Confirmed" (
+	"Date"	TEXT NOT NULL UNIQUE,
+	"Cases"	INTEGER NOT NULL,
+	PRIMARY KEY("Date")
+);
+
+CREATE TABLE "Deaths" (
+	"Date"	TEXT NOT NULL UNIQUE,
+	"Cases"	INTEGER NOT NULL,
+	PRIMARY KEY("Date")
+);

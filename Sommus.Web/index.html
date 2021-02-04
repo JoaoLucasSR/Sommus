@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Sommus</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1">Sommus</span>
+            </div>
+          </nav>
+    </header>
+    <main>
+        <div class="container mt-3">
+            <div class="row">
+                <h1 class="text-center">COVID Numbers</h1>
+            </div>
+            <div class="mt-5 d-flex flex-row justify-content-between align-items-center">
+                <div>
+                    <h2>Esta Semana</h2>
+                    <div id="media1"></div>
+                </div>
+                <div>
+                    <h2>Semana Passada</h2>
+                    <div id="media2"></div>
+                </div>
+                <div>
+                    <h2>Semana Retrasada</h2>
+                    <div id="media3"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            let current_datetime = new Date();
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "T" + "00:00:00Z";
+            $.ajax({
+                url: "http://localhost:5000/api/MediaMovel?date=" + formatted_date,
+                success: function(result){
+                    $(document.createElement("p")).text("Media Confirmados: " + result.confirmed).appendTo("#media1");
+                    $(document.createElement("p")).text("Media Mortes: " + result.deaths).appendTo("#media1");
+                }
+            });
+            current_datetime = new Date(new Date().setDate(new Date().getDate() - 7));
+            formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "T" + "00:00:00Z";
+            $.ajax({
+                url: "http://localhost:5000/api/MediaMovel?date=" + formatted_date,
+                success: function(result){
+                    $(document.createElement("p")).text("Media Confirmados: " + result.confirmed).appendTo("#media2");
+                    $(document.createElement("p")).text("Media Mortes: " + result.deaths).appendTo("#media2");
+                }
+            });
+            current_datetime = new Date(new Date().setDate(new Date().getDate() - 14));
+            formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "T" + "00:00:00Z";
+            $.ajax({
+                url: "http://localhost:5000/api/MediaMovel?date=" + formatted_date,
+                success: function(result){
+                    $(document.createElement("p")).text("Media Confirmados: " + result.confirmed).appendTo("#media3");
+                    $(document.createElement("p")).text("Media Mortes: " + result.deaths).appendTo("#media3");
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

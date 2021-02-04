@@ -35,6 +35,7 @@ namespace Sommus.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sommus.Api", Version = "v1" });
             });
+            services.AddCors();
         }
 
 
@@ -52,6 +53,8 @@ namespace Sommus.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(option => option.AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
